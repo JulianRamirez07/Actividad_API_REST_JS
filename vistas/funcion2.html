@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- BOOTSTRAP 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap" rel="stylesheet">
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="../assets/css/estilos.css">
+
+    <title>API REST</title>
+</head>
+
+<body>
+
+    <!-- NAVEGATION -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand">Listado y Busqueda de Equipos</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="funcion1.html">Función #1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="funcion2.html">Función #2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="funcion3.html">Función #3</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-2">
+        <h2>Buscar equipo</h2>
+        <input class="form-control col-md-3 light-table-filter" data-table="order-table" type="text" placeholder="Search...">
+    </div>
+
+    <div class="container my-4 text-center">
+        <button class="btn btn-info w-100" onclick="ObtenerDatos()">Obtener Datos Equipos</button>
+    </div>
+
+    <div class="container">
+        <div class="mt-5">
+            <table class="table table-striped order-table">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Abrebiación</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Ciudad</th>
+                        <th scope="col">División</th>
+                    </tr>
+                </thead>
+                <tbody id="contenido">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="../assets/js/logic2.js"></script>
+    <!-- Codigo para realizar el buscador en tiempo real -->
+    <script type="text/javascript">
+        (function (document) {
+            'use strict';
+
+            var LightTableFilter = (function (Arr) {
+
+                var _input;
+
+                function _onInputEvent(e) {
+                    _input = e.target;
+                    var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+                    Arr.forEach.call(tables, function (table) {
+                        Arr.forEach.call(table.tBodies, function (tbody) {
+                            Arr.forEach.call(tbody.rows, _filter);
+                        });
+                    });
+                }
+
+                function _filter(row) {
+                    var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+                    row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+                }
+
+                return {
+                    init: function () {
+                        var inputs = document.getElementsByClassName('light-table-filter');
+                        Arr.forEach.call(inputs, function (input) {
+                            input.oninput = _onInputEvent;
+                        });
+                    }
+                };
+            })(Array.prototype);
+
+            document.addEventListener('readystatechange', function () {
+                if (document.readyState === 'complete') {
+                    LightTableFilter.init();
+                }
+            });
+
+        })(document);
+    </script>
+
+</body>
+
+</html>
